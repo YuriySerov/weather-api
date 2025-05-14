@@ -11,11 +11,11 @@ function Weather() {
     const handleCityChange = (e) => {
         let value = e.target.value;
 
-        // Удаляем лишние пробелы (заменяем множественные на один)
-        value = value.replace(/\s+/g, ' ').trimStart();
+        // Удаляем лишние пробелы и тире (заменяем множественные на один)
+        value = value.replace(/\s+/g, ' ').replace(/-+/g, '-').trimStart();
 
-        // Разрешаем только буквы и пробелы (включая кириллицу)
-        if (/^[a-zA-Zа-яА-Я\s]*$/.test(value) || value === '') {
+        // Разрешаем только буквы, пробелы и тире (включая кириллицу)
+        if (/^[a-zA-Zа-яА-Я\s-]*$/.test(value) || value === '') {
             setCity(value);
             setError('');
         }
@@ -93,8 +93,8 @@ function Weather() {
                             placeholder="Поиск города..."
                             className={styles.searchInput}
                             maxLength={60}
-                            pattern="[a-zA-Zа-яА-Я\s]+"
-                            title="Разрешены только буквы и пробелы"
+                            pattern="[a-zA-Zа-яА-Я\s-]+"
+                            title="Разрешены только буквы, пробелы и дефисы"
                         />
                         <button
                             onClick={fetchWeather}
